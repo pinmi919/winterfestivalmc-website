@@ -4,8 +4,12 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: "Noto Sans TC", Arial, sans-serif;
+    font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
     background: linear-gradient(180deg, #07111f, #10243a);
     color: #ffffff;
     line-height: 1.7;
@@ -14,26 +18,53 @@ body {
 .hero {
     min-height: 100vh;
     text-align: center;
-    padding: 140px 20px;
+    padding: 130px 20px;
     background:
         radial-gradient(circle at top, rgba(94, 212, 200, 0.35), transparent 35%),
+        radial-gradient(circle at 20% 20%, rgba(174, 232, 255, 0.18), transparent 30%),
         linear-gradient(180deg, #081426, #0d1f35);
 }
 
 .hero h1 {
     font-size: 56px;
     margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 
 .hero h2 {
     font-size: 36px;
     color: #aee8ff;
     margin-bottom: 15px;
+    text-shadow: 0 0 18px rgba(174, 232, 255, 0.45);
 }
 
 .hero p {
     font-size: 20px;
     color: #d8f5ff;
+}
+
+.countdown {
+    margin-top: 35px;
+    padding: 22px 32px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(174, 232, 255, 0.35);
+    display: inline-block;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 30px rgba(94, 212, 200, 0.12);
+}
+
+.countdown p {
+    font-size: 18px;
+    color: #d8f5ff;
+    margin-bottom: 8px;
+}
+
+#timer {
+    font-size: 30px;
+    font-weight: bold;
+    color: #aee8ff;
+    letter-spacing: 1px;
 }
 
 .buttons {
@@ -49,6 +80,13 @@ body {
     color: #07111f;
     background: #aee8ff;
     font-weight: bold;
+    transition: 0.25s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(174, 232, 255, 0.35);
 }
 
 .section {
@@ -76,6 +114,11 @@ body {
     padding-left: 22px;
 }
 
+.card p,
+.card li {
+    font-size: 17px;
+}
+
 footer {
     text-align: center;
     padding: 30px;
@@ -84,12 +127,24 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .hero {
+        padding: 110px 18px;
+    }
+
     .hero h1 {
         font-size: 38px;
     }
 
     .hero h2 {
         font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    #timer {
+        font-size: 24px;
     }
 
     .section h2 {
