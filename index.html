@@ -4,93 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winter Festival 2026｜冬境之約</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- 下雪特效畫布 -->
+    <canvas id="snowCanvas"></canvas>
 
-<header class="hero">
-    <h1>❄️ Winter Festival 2026</h1>
-    <h2>冬境之約</h2>
-    <p>Minecraft 創作者聯動企劃</p>
+    <!-- 元件掛載點 -->
+    <div id="navbar-container"></div>
+    <div id="hero-container"></div>
+    <div id="about-container"></div>
+    <div id="world-container"></div>
+    <div id="schedule-container"></div>
+    <div id="requirements-container"></div>
+    <div id="plugins-container"></div>
+    <div id="footer-container"></div>
 
-    <div class="countdown">
-        <p>距離 Winter Festival 開幕</p>
-        <div id="timer">載入中...</div>
-    </div>
-
-    <div class="buttons">
-        <a href="#" class="btn">📢 Discord</a>
-        <a href="#" class="btn">🎬 創作者招募</a>
-        <a href="#" class="btn">📖 活動介紹</a>
-    </div>
-</header>
-
-<section class="section">
-    <h2>📅 活動資訊</h2>
-
-    <div class="card">
-        <p><strong>活動期間</strong></p>
-        <p>2026/11/21 ~ 2027/02/20</p>
-    </div>
-
-    <div class="card">
-        <p><strong>活動類型</strong></p>
-        <p>Minecraft 創作者聯動企劃</p>
-    </div>
-
-    <div class="card">
-        <p><strong>預計參與</strong></p>
-        <p>10 ~ 20 位創作者</p>
-    </div>
-
-    <div class="card">
-        <p><strong>活動地圖</strong></p>
-        <p>Winter Kingdom｜冬季生存世界</p>
-    </div>
-</section>
-
-<section class="section">
-    <h2>🎬 創作者招募條件</h2>
-
-    <div class="card">
-        <ul>
-            <li>訂閱數 / 追蹤數 200 ~ 2000</li>
-            <li>Minecraft 內容佔比 80% 以上</li>
-            <li>活動期間至少 14 天內登入一次</li>
-            <li>活動期間直播 4 次、影片 4 部，或創作總數 6 次以上</li>
-            <li>願意遵守活動規範</li>
-        </ul>
-    </div>
-</section>
-
-<section class="section">
-    <h2>🏆 Winter Awards</h2>
-
-    <div class="card">
-        <p>年度 MVP</p>
-        <p>最佳建築獎</p>
-        <p>最佳攝影獎</p>
-        <p>最佳合作獎</p>
-        <p>最佳故事獎</p>
-    </div>
-</section>
-
-<section class="section">
-    <h2>📧 官方資訊</h2>
-
-    <div class="card">
-        <p><strong>官方網站</strong></p>
-        <p>winterfestivalmc.com</p>
-        <br>
-        <p><strong>官方信箱</strong></p>
-        <p>contact@winterfestivalmc.com</p>
-    </div>
-</section>
-
-<footer>
-    <p>© Winter Festival 2026｜冬境之約</p>
-</footer>
-
-<script src="script.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/snow.js"></script>
 </body>
 </html>
