@@ -88,7 +88,7 @@ export default function Hero() {
       {/* 底部：無限跑馬燈 */}
       <div className="absolute bottom-0 w-full border-t border-white/5 bg-night/50 backdrop-blur-md py-4 overflow-hidden flex z-30">
         <div className="animate-marquee whitespace-nowrap flex gap-12 items-center text-sm font-bold text-gray-500 tracking-widest uppercase">
-          {Array(4).fill("冬境城 • 極光塔 • 冬日市集 • 創作者村 • 榮譽殿堂 • 永冬山脈 • 鴨子藏在這應該魔人會發現？").map((text, i) => (
+          {Array(4).fill("冬境城 • 極光塔 • 冬日市集 • 創作者村 • 榮譽殿堂 • 永冬山脈 • 鴨子藏在這應該沒人會發現？").map((text, i) => (
             <span key={i} className="hover:text-aurora-cyan transition-colors cursor-default">{text}</span>
           ))}
         </div>
