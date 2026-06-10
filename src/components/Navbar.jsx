@@ -7,7 +7,7 @@ export default function Navbar() {
         
         <a href="#" className="flex items-center gap-2 text-white font-bold text-lg tracking-wider group">
           <Snowflake className="text-aurora-cyan group-hover:animate-spin" size={20} />
-          <span>WF<span className="text-gray-400">2026</span></span>
+          <span>MC Winter Festival 冬境之約 <span className="text-gray-400">2026</span></span>
         </a>
         
         <ul className="hidden md:flex gap-8 text-sm font-medium text-gray-400">

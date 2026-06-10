@@ -22,29 +22,29 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center pt-32 pb-16 overflow-hidden">
       
-      {/* 修正版：外部圖片背景 + 內建 CSS 模糊效果 */}
+      {/* 外部圖片背景 + 內建 CSS 模糊效果 */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-night">
-        {/* 1. 將 opacity 提高到 80，讓圖片能清楚透出 */}
         <img 
-          src="/bg-blur.png" /* ⚠️ 如果你的圖是 jpg，請把這裡改成 /bg-blur.jpg */
+          src="/bg-blur.png" 
           alt="Background" 
-          className="w-full h-full object-cover opacity-100 blur-[20px] scale-110"
+          className="w-full h-full object-cover opacity-80 blur-[20px] scale-110"
         />
-        {/* 2. 減弱上方與中間的黑色遮罩，只保留底部的全黑來完美過渡到下一區塊 */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-night/40 to-night"></div>
       </div>
       
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center flex-1 w-full z-10">
+      {/* 🌟 修正點 1：將網格改為 12 等份，讓左右可以不對稱分配 */}
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-1 w-full z-10">
         
-        {/* 左側：極簡純粹的標題排版 */}
-        <div className="text-left relative z-20">
+        {/* 🌟 修正點 2：左側佔據 7 份空間 (約 58%)，給英文字足夠的伸展空間 */}
+        <div className="text-left relative z-20 lg:col-span-7 overflow-visible">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-aurora-cyan/30 bg-aurora-cyan/10 text-aurora-cyan text-xs font-semibold mb-8 uppercase tracking-widest backdrop-blur-md shadow-[0_0_15px_rgba(0,240,255,0.2)]">
             <span className="w-2 h-2 rounded-full bg-aurora-cyan animate-pulse"></span>
             Minecraft Creators Event
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-2 leading-[1.1]">
-            Winter Festival 2026
+          {/* 調整了字體在各個螢幕的大小，確保單行不破版 */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-[4rem] font-black tracking-tighter mb-2 leading-[1.1] whitespace-nowrap">
+            MC Winter Festival 2026
           </h1>
           <h2 className="text-6xl md:text-8xl font-black mb-8 text-gradient drop-shadow-[0_0_20px_rgba(0,240,255,0.3)]">
             冬境之約
@@ -55,22 +55,22 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* 右側：高質感圖片疊加展示 */}
-        <div className="relative z-20 hidden lg:block h-[500px] w-full">
+        {/* 🌟 修正點 3：右側佔據 5 份空間 (約 42%) */}
+        <div className="relative z-20 hidden lg:block lg:col-span-5 h-[500px] w-full">
           
           {/* 主展示圖 (後方) -> pic1.png */}
-          <div className="absolute top-0 right-0 w-[80%] h-[350px] rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform rotate-3 hover:rotate-0 transition-all duration-500 bg-[#0D111A]">
+          <div className="absolute top-0 right-0 w-[85%] h-[350px] rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform rotate-3 hover:rotate-0 transition-all duration-500 bg-[#0D111A]">
             <img src="/pic1.png" alt="Winter Kingdom Main" className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
           </div>
 
           {/* 副展示圖 (前方疊加) -> pic2.png */}
-          <div className="absolute bottom-16 left-0 w-[65%] h-[250px] rounded-2xl overflow-hidden border border-aurora-cyan/30 shadow-[0_0_40px_rgba(0,240,255,0.2)] transform -rotate-3 hover:rotate-0 transition-all duration-500 z-20 bg-[#0D111A]">
+          <div className="absolute bottom-16 left-[-5%] w-[70%] h-[250px] rounded-2xl overflow-hidden border border-aurora-cyan/30 shadow-[0_0_40px_rgba(0,240,255,0.2)] transform -rotate-3 hover:rotate-0 transition-all duration-500 z-20 bg-[#0D111A]">
             <img src="/pic2.png" alt="Winter Kingdom Detail" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
           </div>
 
           {/* 懸浮倒數卡片 */}
-          <div className="glass-panel p-5 absolute -bottom-4 right-10 z-30 flex items-center gap-5 animate-float bg-[#0D111A]/95 border-aurora-purple/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+          <div className="glass-panel p-5 absolute -bottom-4 right-5 z-30 flex items-center gap-5 animate-float bg-[#0D111A]/95 border-aurora-purple/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
             <div className="p-3 bg-aurora-purple/20 rounded-xl">
               <Sparkles className="text-aurora-purple" size={24} />
             </div>
