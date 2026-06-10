@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react'; 
 
 export default function Hero() {
   const [timeLeft, setTimeLeft] = useState({ days: '00', hours: '00', minutes: '00' });
