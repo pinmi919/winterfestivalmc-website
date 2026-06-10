@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Sparkles, Server, Users, ArrowRight, Activity } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export default function Hero() {
   const [timeLeft, setTimeLeft] = useState({ days: '00', hours: '00', minutes: '00' });
@@ -21,80 +21,63 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center pt-32 pb-16 overflow-hidden">
-      {/* 模擬極光背景光暈 */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-aurora-cyan/20 blur-[150px] rounded-full mix-blend-screen animate-pulse-slow pointer-events-none"></div>
-      <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-aurora-purple/20 blur-[150px] rounded-full mix-blend-screen animate-pulse-slow pointer-events-none" style={{ animationDelay: '2s' }}></div>
-
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center flex-1 w-full">
+      
+      {/* 修正版：外部圖片背景 + 內建 CSS 模糊效果 */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-night">
+        {/* 1. 將 opacity 提高到 80，讓圖片能清楚透出 */}
+        <img 
+          src="/bg-blur.png" /* ⚠️ 如果你的圖是 jpg，請把這裡改成 /bg-blur.jpg */
+          alt="Background" 
+          className="w-full h-full object-cover opacity-100 blur-[20px] scale-110"
+        />
+        {/* 2. 減弱上方與中間的黑色遮罩，只保留底部的全黑來完美過渡到下一區塊 */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-night/40 to-night"></div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center flex-1 w-full z-10">
         
-        {/* 左側：巨型排版與文字 */}
-        <div className="text-left z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-aurora-cyan/30 bg-aurora-cyan/10 text-aurora-cyan text-xs font-semibold mb-8 uppercase tracking-widest">
+        {/* 左側：極簡純粹的標題排版 */}
+        <div className="text-left relative z-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-aurora-cyan/30 bg-aurora-cyan/10 text-aurora-cyan text-xs font-semibold mb-8 uppercase tracking-widest backdrop-blur-md shadow-[0_0_15px_rgba(0,240,255,0.2)]">
             <span className="w-2 h-2 rounded-full bg-aurora-cyan animate-pulse"></span>
             Minecraft Creators Event
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-4 leading-[1.1]">
-            一年一次<br/>
-            <span className="text-gradient">冬日相聚.</span>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-2 leading-[1.1]">
+            Winter Festival 2026
           </h1>
+          <h2 className="text-6xl md:text-8xl font-black mb-8 text-gradient drop-shadow-[0_0_20px_rgba(0,240,255,0.3)]">
+            冬境之約
+          </h2>
           
-          <p className="text-lg text-gray-400 max-w-xl mb-10 leading-relaxed">
-            Winter Festival 2026｜冬境之約。這不僅是一個伺服器，這是一場專為創作者打造的 12 週沉浸式冬季聯動企劃。
+          <p className="text-2xl md:text-3xl font-bold text-white tracking-wide border-l-4 border-aurora-cyan pl-6 py-2">
+            一年一次，冬日相聚。
           </p>
-
-          <div className="flex flex-wrap items-center gap-6">
-            <button className="flex items-center gap-2 bg-white text-night px-8 py-4 rounded-full font-bold hover:bg-gray-200 transition-colors">
-              提交審核 <ArrowRight size={18} />
-            </button>
-            <button className="flex items-center gap-2 text-white px-6 py-4 rounded-full font-bold border border-white/10 hover:bg-white/5 transition-colors">
-              觀看預告片
-            </button>
-          </div>
         </div>
 
-        {/* 右側：科技感儀表板卡片 (致敬參考圖) */}
-        <div className="relative z-10 hidden md:block">
-          {/* 主卡片：伺服器狀態 */}
-          <div className="glass-panel p-8 w-full max-w-md ml-auto relative z-20 bg-[#0D111A]/90">
-            <div className="flex justify-between items-start mb-8">
-              <div className="p-3 bg-aurora-purple/20 rounded-xl">
-                <Server className="text-aurora-purple" size={24} />
-              </div>
-              <span className="text-xs text-aurora-green flex items-center gap-1 bg-aurora-green/10 px-3 py-1 rounded-full border border-aurora-green/20">
-                <Activity size={12} /> Status: Preparing
-              </span>
-            </div>
-            <h3 className="text-2xl font-bold mb-2">Winter Kingdom</h3>
-            <p className="text-sm text-gray-400 mb-8">Whitelisted Creator Server</p>
-            
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div>
-                <p className="text-3xl font-black text-aurora-cyan">15-20</p>
-                <p className="text-xs text-gray-500 uppercase tracking-wider mt-1">Target Creators</p>
-              </div>
-              <div>
-                <p className="text-3xl font-black text-white">12</p>
-                <p className="text-xs text-gray-500 uppercase tracking-wider mt-1">Weeks Event</p>
-              </div>
-            </div>
+        {/* 右側：高質感圖片疊加展示 */}
+        <div className="relative z-20 hidden lg:block h-[500px] w-full">
+          
+          {/* 主展示圖 (後方) -> pic1.png */}
+          <div className="absolute top-0 right-0 w-[80%] h-[350px] rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform rotate-3 hover:rotate-0 transition-all duration-500 bg-[#0D111A]">
+            <img src="/pic1.png" alt="Winter Kingdom Main" className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+          </div>
 
-            {/* 進度條 */}
-            <div className="w-full bg-white/5 rounded-full h-1.5 mb-2">
-              <div className="bg-gradient-to-r from-aurora-cyan to-aurora-purple h-1.5 rounded-full w-1/3"></div>
-            </div>
-            <p className="text-xs text-gray-500 text-right">Building World...</p>
+          {/* 副展示圖 (前方疊加) -> pic2.png */}
+          <div className="absolute bottom-16 left-0 w-[65%] h-[250px] rounded-2xl overflow-hidden border border-aurora-cyan/30 shadow-[0_0_40px_rgba(0,240,255,0.2)] transform -rotate-3 hover:rotate-0 transition-all duration-500 z-20 bg-[#0D111A]">
+            <img src="/pic2.png" alt="Winter Kingdom Detail" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
           </div>
 
           {/* 懸浮倒數卡片 */}
-          <div className="glass-panel p-6 absolute -bottom-12 -left-12 z-30 flex items-center gap-6 animate-float bg-[#0D111A]/95 border-aurora-cyan/20">
-            <div className="p-3 bg-aurora-cyan/20 rounded-xl">
-              <Sparkles className="text-aurora-cyan" size={24} />
+          <div className="glass-panel p-5 absolute -bottom-4 right-10 z-30 flex items-center gap-5 animate-float bg-[#0D111A]/95 border-aurora-purple/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+            <div className="p-3 bg-aurora-purple/20 rounded-xl">
+              <Sparkles className="text-aurora-purple" size={24} />
             </div>
             <div>
-              <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Time to Launch</p>
-              <div className="text-2xl font-black font-mono tracking-widest text-white">
-                {timeLeft.days}<span className="text-aurora-cyan">:</span>{timeLeft.hours}<span className="text-aurora-cyan">:</span>{timeLeft.minutes}
+              <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Server Launch</p>
+              <div className="text-xl font-black font-mono tracking-widest text-white">
+                {timeLeft.days}<span className="text-aurora-purple mx-1">:</span>{timeLeft.hours}<span className="text-aurora-purple mx-1">:</span>{timeLeft.minutes}
               </div>
             </div>
           </div>
@@ -102,8 +85,8 @@ export default function Hero() {
 
       </div>
 
-      {/* 底部：無限跑馬燈 (地圖景點) */}
-      <div className="absolute bottom-0 w-full border-t border-white/5 bg-night/50 backdrop-blur-md py-4 overflow-hidden flex z-20">
+      {/* 底部：無限跑馬燈 */}
+      <div className="absolute bottom-0 w-full border-t border-white/5 bg-night/50 backdrop-blur-md py-4 overflow-hidden flex z-30">
         <div className="animate-marquee whitespace-nowrap flex gap-12 items-center text-sm font-bold text-gray-500 tracking-widest uppercase">
           {Array(4).fill("冬境城 • 極光塔 • 冬日市集 • 創作者村 • 榮譽殿堂 • 永冬山脈 • ").map((text, i) => (
             <span key={i} className="hover:text-aurora-cyan transition-colors cursor-default">{text}</span>
