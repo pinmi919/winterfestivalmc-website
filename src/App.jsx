@@ -5,6 +5,7 @@ import Schedule from './components/Schedule';
 import Requirements from './components/Requirements';
 import Footer from './components/Footer';
 import Snow from './components/Snow';
+import News from './components/News';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Snow />
       <Navbar />
       <Hero />
-      <About />
+      <News />
       <Schedule />
       <Requirements />
       <Footer />
