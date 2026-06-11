@@ -32,30 +32,27 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-night/40 to-night"></div>
       </div>
       
-      {/* 🌟 修正點 1：將網格改為 12 等份，讓左右可以不對稱分配 */}
+      {/* 網格改為 12 等份 */}
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-1 w-full z-10">
         
-        {/* 🌟 修正點 2：左側佔據 7 份空間 (約 58%)，給英文字足夠的伸展空間 */}
+        {/* 左側佔據 7 份空間 */}
         <div className="text-left relative z-20 lg:col-span-7 overflow-visible">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-aurora-cyan/30 bg-aurora-cyan/10 text-aurora-cyan text-xs font-semibold mb-8 uppercase tracking-widest backdrop-blur-md shadow-[0_0_15px_rgba(0,240,255,0.2)]">
-            <span className="w-2 h-2 rounded-full bg-aurora-cyan animate-pulse"></span>
-            Minecraft Creators Event
-          </div>
           
-          {/* 調整了字體在各個螢幕的大小，確保單行不破版 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-[4rem] font-black tracking-tighter mb-2 leading-[1.1] whitespace-nowrap">
-            MC Winter Festival 2026
+          {/* 🌟 替換點：將原本的文字換成 Logo 圖片 */}
+          <h1 className="mb-4 md:mb-6">
+            <img 
+              src="/logo.png" 
+              alt="MC Winter Festival 2026" 
+              className="w-64 md:w-80 lg:w-[400px] xl:w-[500px] h-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+            />
           </h1>
-          <h2 className="text-6xl md:text-8xl font-black mb-8 text-gradient drop-shadow-[0_0_20px_rgba(0,240,255,0.3)]">
-            冬境之約
-          </h2>
           
           <p className="text-2xl md:text-3xl font-bold text-white tracking-wide border-l-4 border-aurora-cyan pl-6 py-2">
             一年一次，冬日相聚。
           </p>
         </div>
 
-        {/* 🌟 修正點 3：右側佔據 5 份空間 (約 42%) */}
+        {/* 右側佔據 5 份空間 */}
         <div className="relative z-20 hidden lg:block lg:col-span-5 h-[500px] w-full">
           
           {/* 主展示圖 (後方) -> pic1.png */}
