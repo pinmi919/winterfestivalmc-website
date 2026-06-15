@@ -10,7 +10,7 @@ export default function Footer() {
         </div>
 
         <div className="text-center md:text-left text-sm text-gray-400">
-          <p className="mb-2">推薦插件：LuckPerms, EssentialsX, CoreProtect, ItemsAdder...</p>
+          <p className="mb-2">由呱呱呱呱呱呱提供</p>
           <div className="flex justify-center md:justify-start gap-4 text-winter-accent">
             <a href="#" className="hover:text-white transition">官方網站</a>
             <a href="mailto:contact@winterfestivalmc.com" className="hover:text-white transition">聯繫我們</a>
