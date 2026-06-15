@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import VolumeKnob from './VolumeKnob'; // <-- IMPORT THE KNOB HERE
+import VolumeKnob from './VolumeKnob';
 
 const MusicPlayer = ({ isMinimized: initMin = false }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMinimized, setIsMinimized] = useState(initMin);
-  const [progress, setProgress] = useState(0); // Set to 0 to start
+  const [progress, setProgress] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
-  const [showVolume, setShowVolume] = useState(false); // <-- STATE TO SHOW/HIDE KNOB
+  const [showVolume, setShowVolume] = useState(false);
   
   const audioRef = useRef(null);
   const intervalRef = useRef(null);
@@ -46,30 +46,38 @@ const MusicPlayer = ({ isMinimized: initMin = false }) => {
     if (audioRef.current) audioRef.current.currentTime = secs;
   };
 
-  if (isMinimized) {
-    return (
+  return (
+    <div className="fixed bottom-6 right-6 z-50 flex justify-end items-end">
+      
+      <audio ref={audioRef} src="/2026MCWinterFestival冬境之約主題曲01.wav" loop />
+
+      {/* --- MINIMIZED BUTTON --- */}
+      {/* Hidden when isMinimized is false */}
       <button
         onClick={() => setIsMinimized(false)}
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-gray-900 border border-white/10 shadow-lg flex items-center justify-center text-xl text-white"
+        className={`w-12 h-12 rounded-full bg-night border border-white/10 shadow-lg justify-center items-center text-xl text-white transition-transform hover:scale-110 ${
+          isMinimized ? 'flex' : 'hidden'
+        }`}
       >
         ♪
       </button>
-    );
-  }
 
-  return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <audio ref={audioRef} src="/2026MCWinterFestival冬境之約主題曲01.wav" loop />
-
-      <div className="flex items-center gap-4 bg-gray-900 border border-white/10 rounded-[20px] shadow-2xl p-4 w-[340px]">
+      {/* --- EXPANDED PLAYER --- */}
+      {/* Hidden when isMinimized is true */}
+      <div 
+        className={`gap-4 bg-night border border-white/10 rounded-[20px] shadow-2xl p-4 w-[340px] items-center ${
+          isMinimized ? 'hidden' : 'flex'
+        }`}
+      >
         
-        {/* Spinning Disc */}
         <div className="relative flex-shrink-0 w-[72px] h-[72px]">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-700 via-gray-900 to-black border border-white/10" />
           
           <div
             className="absolute inset-[6px] rounded-full overflow-hidden"
-            style={{ animation: isPlaying ? 'spin 8s linear infinite' : 'none' }}
+            style={{
+              animation: isPlaying ? 'spin 8s linear infinite' : 'none',
+            }}
           >
             <img
               src="/cow.gif"
@@ -80,7 +88,9 @@ const MusicPlayer = ({ isMinimized: initMin = false }) => {
                 e.target.nextSibling.style.display = 'block';
               }}
             />
-            <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-400 via-purple-500 to-gray-900 hidden" />
+            <div
+              className="w-full h-full rounded-full bg-gradient-to-br from-aurora-cyan via-blue-500 to-night hidden"
+            />
           </div>
 
           <div
@@ -90,7 +100,6 @@ const MusicPlayer = ({ isMinimized: initMin = false }) => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white/80 border border-black/20 z-10" />
         </div>
 
-        {/* Info + Controls */}
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-[14px] text-white truncate leading-tight mb-0.5">
             冬境之約主題曲
@@ -99,14 +108,13 @@ const MusicPlayer = ({ isMinimized: initMin = false }) => {
             2026 MC Winter Festival
           </p>
 
-          {/* Progress */}
           <div className="flex items-center gap-1.5 mb-2">
             <div
               className="flex-1 h-[3px] bg-white/10 rounded-full cursor-pointer overflow-hidden"
               onClick={handleProgressClick}
             >
               <div
-                className="h-full bg-blue-400 rounded-full transition-[width] duration-300"
+                className="h-full bg-aurora-cyan rounded-full transition-[width] duration-300"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -115,15 +123,12 @@ const MusicPlayer = ({ isMinimized: initMin = false }) => {
             </span>
           </div>
 
-          {/* Buttons */}
           <div className="flex items-center gap-0.5">
             
-            {/* ======= VOLUME KNOB WRAPPER ======= */}
             <div className="relative flex items-center">
-              {/* Toggle Button */}
               <button
                 onClick={() => setShowVolume(!showVolume)}
-                className="p-1 rounded-md transition-colors text-white/60 hover:text-white"
+                className={`p-1 rounded-md transition-colors ${showVolume ? 'text-white' : 'text-white/60 hover:text-white'}`}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
@@ -132,18 +137,20 @@ const MusicPlayer = ({ isMinimized: initMin = false }) => {
                 </svg>
               </button>
 
-              {/* Floating Volume Knob Popover */}
-              {showVolume && (
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 z-50">
-                  <VolumeKnob 
-                    onChange={(v) => { 
-                      if (audioRef.current) audioRef.current.volume = v / 100; 
-                    }} 
-                  />
-                </div>
-              )}
+              <div 
+                className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-4 z-50 transition-all duration-200 origin-bottom ${
+                  showVolume 
+                    ? 'opacity-100 visible scale-100 translate-y-0' 
+                    : 'opacity-0 invisible scale-95 translate-y-2'
+                }`}
+              >
+                <VolumeKnob 
+                  onChange={(v) => { 
+                    if (audioRef.current) audioRef.current.volume = v / 100; 
+                  }} 
+                />
+              </div>
             </div>
-            {/* =================================== */}
 
             <button className="p-1.5 rounded-md text-white/60 hover:text-white hover:bg-white/5 transition-colors">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -175,7 +182,10 @@ const MusicPlayer = ({ isMinimized: initMin = false }) => {
             </button>
 
             <button
-              onClick={() => setIsMinimized(true)}
+              onClick={() => {
+                setIsMinimized(true);
+                setShowVolume(false);
+              }}
               className="ml-auto p-1 rounded-md text-white/20 hover:text-white/50 transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
