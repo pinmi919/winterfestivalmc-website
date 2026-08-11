@@ -1,31 +1,23 @@
 import { useEffect, useState } from 'react';
 import { CalendarDays, Sparkles } from 'lucide-react';
-
-const EVENT_START = new Date('2026-11-27T20:00:00+08:00').getTime();
-
-function getTimeLeft() {
-  const distance = EVENT_START - Date.now();
-
-  if (distance <= 0) {
-    return { days: '00', hours: '00', minutes: '00', seconds: '00', started: true };
-  }
-
-  return {
-    days: String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0'),
-    hours: String(Math.floor((distance / (1000 * 60 * 60)) % 24)).padStart(2, '0'),
-    minutes: String(Math.floor((distance / (1000 * 60)) % 60)).padStart(2, '0'),
-    seconds: String(Math.floor((distance / 1000) % 60)).padStart(2, '0'),
-    started: false,
-  };
-}
+import { EVENT_START, getCountdown, getEventStatus } from '../utils/eventStatus';
 
 export default function Hero() {
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft);
+  const [timeLeft, setTimeLeft] = useState(() => getCountdown());
+  const [eventStatus, setEventStatus] = useState(() => getEventStatus());
 
   useEffect(() => {
-    const interval = window.setInterval(() => setTimeLeft(getTimeLeft()), 1000);
+    const updateStatus = () => {
+      setTimeLeft(getCountdown(EVENT_START));
+      setEventStatus(getEventStatus());
+    };
+
+    updateStatus();
+    const interval = window.setInterval(updateStatus, 1000);
     return () => window.clearInterval(interval);
   }, []);
+
+  const showCountdown = eventStatus.phase === 'upcoming';
 
   return (
     <section id="home" className="relative min-h-screen overflow-hidden pt-32 pb-24 flex items-center">
@@ -96,28 +88,45 @@ export default function Hero() {
           <div className="glass-panel absolute bottom-0 right-2 z-30 w-[88%] border-aurora-purple/25 bg-[#0D111A]/90 p-5 shadow-[0_18px_45px_rgba(0,0,0,0.55)]">
             <div className="mb-3 flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-aurora-purple uppercase">
               <Sparkles size={15} />
-              {timeLeft.started ? 'Winter Festival is live' : 'Countdown to Winter Festival'}
+              {eventStatus.label}
             </div>
-            <div className="grid grid-cols-4 gap-3 text-center font-mono">
-              {[
-                ['天', timeLeft.days],
-                ['時', timeLeft.hours],
-                ['分', timeLeft.minutes],
-                ['秒', timeLeft.seconds],
-              ].map(([label, value]) => (
-                <div key={label} className="rounded-xl border border-white/5 bg-white/5 px-2 py-3">
-                  <div className="text-xl font-black text-white">{value}</div>
-                  <div className="mt-1 text-[10px] text-gray-500">{label}</div>
+
+            {showCountdown ? (
+              <>
+                <p className="mb-3 text-sm text-gray-400">{eventStatus.detail}</p>
+                <div className="grid grid-cols-4 gap-3 text-center font-mono">
+                  {[
+                    ['天', timeLeft.days],
+                    ['時', timeLeft.hours],
+                    ['分', timeLeft.minutes],
+                    ['秒', timeLeft.seconds],
+                  ].map(([label, value]) => (
+                    <div key={label} className="rounded-xl border border-white/5 bg-white/5 px-2 py-3">
+                      <div className="text-xl font-black text-white">{value}</div>
+                      <div className="mt-1 text-[10px] text-gray-500">{label}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            ) : (
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="text-lg font-black text-white">{eventStatus.detail}</div>
+                <p className="mt-2 text-sm text-gray-400">
+                  {eventStatus.phase === 'ended'
+                    ? '感謝所有參與本屆冬境之約的創作者與觀眾。'
+                    : eventStatus.phase === 'break'
+                      ? '本週暫停官方活動，下一週再回到冬境相聚。'
+                      : 'Winter Festival 2026 活動期間中。'}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       <div className="absolute bottom-0 z-20 flex w-full overflow-hidden border-t border-white/5 bg-night/60 py-4 backdrop-blur-md">
         <div className="animate-marquee flex items-center gap-12 whitespace-nowrap text-xs font-bold uppercase tracking-[0.22em] text-gray-500">
-          {Array(4).fill('冬境之心 • 中央廣場 • 創作者區 • 官方活動區 • 每週任務 • 隱藏任務 • Winter Awards').map((text, index) => (
+          {Array(4).fill('12 週主題活動 • 每日任務 • 每週合作任務 • 隱藏任務 • 冬境幣 • Winter Awards • 創作者聯動').map((text, index) => (
             <span key={index}>{text}</span>
           ))}
         </div>
