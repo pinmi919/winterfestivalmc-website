@@ -1,33 +1,12 @@
 import { CalendarClock, CircleCheck, Server, ShieldCheck, Users } from 'lucide-react';
+import { participationNotes, serverFacts } from '../data/server';
 
-const serverFacts = [
-  {
-    icon: Server,
-    title: 'Minecraft Java 1.21.11',
-    description: '伺服器核心採用 Paper，活動以 Java Edition 為唯一版本。',
-  },
-  {
-    icon: ShieldCheck,
-    title: '原生白名單制',
-    description: '使用 Minecraft 原生白名單管理參與者，不使用額外金鑰驗證。',
-  },
-  {
-    icon: Users,
-    title: '創作者聯動',
-    description: '預計約 20 位創作者共同參與，重點是交流、直播、拍片與共同創作。',
-  },
-  {
-    icon: CalendarClock,
-    title: '12 週冬季企劃',
-    description: '活動期間為 2026/11/27 至 2027/02/20，每週五 20:00–22:00 進行官方活動。',
-  },
-];
-
-const participationNotes = [
-  '活動定位以創作者交流與冬季節慶體驗為核心，而非大型競技生存。',
-  '活動期間將包含每日任務、每週合作任務、隱藏任務與冬境幣系統。',
-  '每週主題活動、Winter Awards 與冬境世界內容將依企劃進度陸續公開。',
-];
+const iconMap = {
+  server: Server,
+  shield: ShieldCheck,
+  users: Users,
+  calendar: CalendarClock,
+};
 
 export default function Requirements() {
   return (
@@ -49,15 +28,18 @@ export default function Requirements() {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
-          {serverFacts.map(({ icon: Icon, title, description }) => (
-            <article key={title} className="glass-panel p-7 md:p-8">
-              <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/5">
-                <Icon className="text-aurora-cyan" size={23} />
-              </div>
-              <h3 className="text-xl font-black text-white">{title}</h3>
-              <p className="mt-3 leading-7 text-gray-400">{description}</p>
-            </article>
-          ))}
+          {serverFacts.map(({ icon, title, description }) => {
+            const Icon = iconMap[icon] || Server;
+            return (
+              <article key={title} className="glass-panel p-7 md:p-8">
+                <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/5">
+                  <Icon className="text-aurora-cyan" size={23} />
+                </div>
+                <h3 className="text-xl font-black text-white">{title}</h3>
+                <p className="mt-3 leading-7 text-gray-400">{description}</p>
+              </article>
+            );
+          })}
         </div>
 
         <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.035] p-7 backdrop-blur-xl md:p-9">
