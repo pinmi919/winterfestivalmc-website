@@ -1,4 +1,4 @@
-import { CalendarDays, Coins, Gem, Radio, Users, WandSparkles } from 'lucide-react';
+import { CalendarDays, Coins, Radio, Sparkles, Users, WandSparkles } from 'lucide-react';
 
 const highlights = [
   {
@@ -14,10 +14,10 @@ const highlights = [
     meta: '約 20 位創作者',
   },
   {
-    icon: Gem,
-    title: '冬境之心',
-    description: '中央廣場以巨大漂浮冰晶「冬境之心」為核心，串聯舞台、整合塔、創作者區與官方活動區。',
-    meta: '中央世界地標',
+    icon: Sparkles,
+    title: '沉浸式活動體驗',
+    description: '透過節慶氛圍、故事性設計與每週活動，讓創作者在整個活動期間持續有新的互動與共同創作內容。',
+    meta: '世界內容持續規劃',
   },
   {
     icon: Coins,
