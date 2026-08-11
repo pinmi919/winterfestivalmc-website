@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CalendarDays, Sparkles } from 'lucide-react';
+import { assetUrl } from '../utils/assetUrl';
 import { EVENT_START, getCountdown, getEventStatus } from '../utils/eventStatus';
 
 export default function Hero() {
@@ -23,7 +24,7 @@ export default function Hero() {
     <section id="home" className="relative min-h-screen overflow-hidden pt-32 pb-24 flex items-center">
       <div className="absolute inset-0 bg-night">
         <img
-          src="/bg-blur.png"
+          src={assetUrl('bg-blur.png')}
           alt=""
           aria-hidden="true"
           className="h-full w-full scale-110 object-cover opacity-70 blur-[18px]"
@@ -40,7 +41,7 @@ export default function Hero() {
           </div>
 
           <img
-            src="/logo.png"
+            src={assetUrl('logo.png')}
             alt="2026 MC Winter Festival 冬境之約"
             className="mb-8 h-auto w-72 object-contain drop-shadow-[0_0_24px_rgba(255,255,255,0.18)] sm:w-96 lg:w-[520px]"
           />
@@ -77,12 +78,12 @@ export default function Hero() {
 
         <div className="relative hidden h-[560px] lg:col-span-5 lg:block">
           <div className="absolute right-0 top-0 h-[360px] w-[88%] rotate-2 overflow-hidden rounded-3xl border border-white/10 bg-[#0D111A] shadow-[0_25px_70px_rgba(0,0,0,0.55)] transition-transform duration-500 hover:rotate-0">
-            <img src="/pic1.png" alt="冬境之約場景" className="h-full w-full object-cover" />
+            <img src={assetUrl('pic1.png')} alt="冬境之約場景" className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-night/80 via-transparent to-transparent" />
           </div>
 
           <div className="absolute bottom-24 left-0 z-20 h-[260px] w-[72%] -rotate-3 overflow-hidden rounded-3xl border border-aurora-cyan/25 bg-[#0D111A] shadow-[0_0_45px_rgba(0,240,255,0.14)] transition-transform duration-500 hover:rotate-0">
-            <img src="/pic2.png" alt="冬境之約場景細節" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
+            <img src={assetUrl('pic2.png')} alt="冬境之約場景細節" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
           </div>
 
           <div className="glass-panel absolute bottom-0 right-2 z-30 w-[88%] border-aurora-purple/25 bg-[#0D111A]/90 p-5 shadow-[0_18px_45px_rgba(0,0,0,0.55)]">
