@@ -1,25 +1,5 @@
 import { CalendarDays, Clock3, PauseCircle, Sparkles } from 'lucide-react';
-
-const weeks = [
-  { num: 1, title: '開幕週', status: 'confirmed' },
-  { num: 2, title: '終界遠征週', status: 'confirmed' },
-  { num: 3, title: '冰雪垂釣週', status: 'confirmed' },
-  { num: 4, title: '怪物攻城週', status: 'confirmed' },
-  { num: 5, title: '聖誕慶典週', status: 'confirmed', featured: true },
-  { num: 6, title: '冬境尋寶週', status: 'confirmed' },
-  { num: 7, title: '創作者交流週', status: 'confirmed' },
-  { num: 8, title: 'Minecraft 試煉週', status: 'confirmed' },
-  { num: 9, title: '規劃中', status: 'planning' },
-  { num: 10, title: '規劃中', status: 'planning' },
-  { num: 11, title: '春節休息週', status: 'break' },
-  { num: 12, title: '閉幕週', status: 'confirmed', featured: true },
-];
-
-const statusLabel = {
-  confirmed: '已確定',
-  planning: '規劃中',
-  break: '休息週',
-};
+import { scheduleMeta, statusLabel, weeks } from '../data/schedule';
 
 export default function Schedule() {
   return (
@@ -39,8 +19,8 @@ export default function Schedule() {
           </div>
 
           <div className="flex flex-col gap-2 text-sm text-gray-400 sm:flex-row sm:gap-6">
-            <span className="flex items-center gap-2"><CalendarDays size={16} className="text-aurora-cyan" /> 2026/11/27 — 2027/02/20</span>
-            <span className="flex items-center gap-2"><Clock3 size={16} className="text-aurora-cyan" /> 每週五 20:00–22:00</span>
+            <span className="flex items-center gap-2"><CalendarDays size={16} className="text-aurora-cyan" /> {scheduleMeta.dateRange}</span>
+            <span className="flex items-center gap-2"><Clock3 size={16} className="text-aurora-cyan" /> {scheduleMeta.weeklyTime}</span>
           </div>
         </div>
 
