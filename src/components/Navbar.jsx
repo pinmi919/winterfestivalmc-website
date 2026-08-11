@@ -5,7 +5,7 @@ const links = [
   { href: '#about', label: '關於企劃' },
   { href: '#news', label: '最新公告' },
   { href: '#schedule', label: '12週活動' },
-  { href: '#requirements', label: '參與資訊' },
+  { href: '#server', label: '伺服器資訊' },
 ];
 
 export default function Navbar() {
