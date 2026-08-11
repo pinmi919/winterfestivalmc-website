@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import VolumeKnob from './VolumeKnob';
+import { assetUrl } from '../utils/assetUrl';
 
 const TRACKS = [
   {
@@ -7,14 +8,14 @@ const TRACKS = [
     artist: '2026 MC Winter Festival',
     emoji: '❄️',
     color: '#22d3ee',
-    src: '/2026MCWinterFestival冬境之約主題曲01.wav',
+    src: assetUrl('2026MCWinterFestival冬境之約主題曲01.wav'),
   },
   {
     title: '波蘭牛',
     artist: 'polish cow',
     emoji: '🐄',
     color: '#818cf8',
-    src: '/polish_cow.mp4',
+    src: assetUrl('polish_cow.mp4'),
   },
 ];
 
@@ -167,7 +168,7 @@ const MusicPlayer = () => {
                 }}
               >
                 {currentTrackIndex === 1 ? (
-                  <img src="/cow.gif" alt="波蘭牛彩蛋封面" className="h-full w-full scale-125 object-cover" />
+                  <img src={assetUrl('cow.gif')} alt="波蘭牛彩蛋封面" className="h-full w-full scale-125 object-cover" />
                 ) : (
                   <span className="text-lg" aria-hidden="true">{currentTrack.emoji}</span>
                 )}
