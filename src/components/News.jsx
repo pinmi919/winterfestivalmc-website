@@ -65,7 +65,7 @@ export default function News() {
               aria-label={`閱讀公告：${featured.title}`}
             >
               <div className="relative min-h-64 overflow-hidden">
-                <img src={featured.image} alt={featured.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={featured.image} alt={featured.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-night/85 via-night/10 to-transparent lg:bg-gradient-to-r" />
               </div>
 
@@ -91,7 +91,7 @@ export default function News() {
               aria-label={`閱讀公告：${item.title}`}
             >
               <div className="aspect-[16/10] overflow-hidden">
-                <img src={item.image} alt={item.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="p-6">
                 {articleMeta(item)}
@@ -130,7 +130,7 @@ export default function News() {
             </button>
 
             <div className="relative aspect-[16/7] min-h-52 overflow-hidden rounded-t-[2rem]">
-              <img src={selectedArticle.image} alt={selectedArticle.title} className="h-full w-full object-cover" />
+              <img src={selectedArticle.image} alt={selectedArticle.title} decoding="async" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#08111e] via-[#08111e]/30 to-transparent" />
             </div>
 
