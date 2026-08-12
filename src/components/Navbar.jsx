@@ -6,6 +6,7 @@ const links = [
   { href: '#news', label: '最新公告' },
   { href: '#schedule', label: '12週活動' },
   { href: '#creators', label: '參與創作者' },
+  { href: '#systems', label: '冬境系統' },
   { href: '#server', label: '伺服器資訊' },
 ];
 
@@ -25,7 +26,7 @@ export default function Navbar() {
             </span>
           </a>
 
-          <ul className="hidden items-center gap-5 text-sm font-semibold text-gray-300 lg:flex">
+          <ul className="hidden items-center gap-4 text-sm font-semibold text-gray-300 xl:flex">
             {links.map((link) => (
               <li key={link.href}>
                 <a href={link.href} className="transition-colors hover:text-aurora-cyan">
@@ -41,7 +42,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white lg:hidden"
+            className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white xl:hidden"
             aria-label={open ? '關閉選單' : '開啟選單'}
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
@@ -51,7 +52,7 @@ export default function Navbar() {
         </div>
 
         {open && (
-          <div className="mt-3 border-t border-white/10 pt-3 lg:hidden">
+          <div className="mt-3 border-t border-white/10 pt-3 xl:hidden">
             <div className="grid gap-1">
               {links.map((link) => (
                 <a
