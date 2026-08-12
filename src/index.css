@@ -3,21 +3,144 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-night text-white min-h-screen overflow-x-hidden selection:bg-aurora-cyan selection:text-night;
-    font-family: "Noto Sans TC", sans-serif;
+  :root {
+    color-scheme: dark;
+    background: #07111f;
+  }
+
+  html {
     scroll-behavior: smooth;
+    scroll-padding-top: 7.5rem;
+    background: #07111f;
+  }
+
+  body {
+    @apply min-h-screen overflow-x-hidden bg-night text-white selection:bg-aurora-cyan selection:text-night;
+    margin: 0;
+    min-width: 320px;
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  section[id] {
+    scroll-margin-top: 7.5rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid rgb(0 240 255 / 0.9);
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #07111f;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid #07111f;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.18);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(0 240 255 / 0.38);
   }
 }
 
 @layer components {
-  /* 進階版：科技感玻璃卡片 */
   .glass-panel {
-    @apply bg-[#0D111A]/60 backdrop-blur-xl border border-white/5 rounded-2xl transition-all duration-500 hover:border-aurora-cyan/30 hover:shadow-[0_0_40px_rgba(0,240,255,0.1)];
+    @apply rounded-2xl border border-white/5 bg-[#0D111A]/60 backdrop-blur-xl transition-all duration-500 hover:border-aurora-cyan/30 hover:shadow-[0_0_40px_rgba(0,240,255,0.1)];
   }
-  
-  /* 漸層文字特用 class */
+
   .text-gradient {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-aurora-cyan via-aurora-blue to-aurora-purple;
+    @apply bg-gradient-to-r from-aurora-cyan via-aurora-blue to-aurora-purple bg-clip-text text-transparent;
+  }
+
+  .section-title {
+    @apply mb-12 text-center text-4xl font-black tracking-tight text-white md:text-5xl;
+  }
+}
+
+@keyframes mcwf-modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mcwf-modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+[role="presentation"]:has(> [role="dialog"][aria-modal="true"]) {
+  animation: mcwf-modal-backdrop-in 180ms ease-out both;
+}
+
+[role="dialog"][aria-modal="true"] {
+  animation: mcwf-modal-panel-in 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 639px) {
+  html {
+    scroll-padding-top: 6.5rem;
+  }
+
+  section[id] {
+    scroll-margin-top: 6.5rem;
+  }
+
+  [role="dialog"][aria-modal="true"] {
+    border-radius: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
