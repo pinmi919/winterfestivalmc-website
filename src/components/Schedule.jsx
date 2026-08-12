@@ -1,10 +1,32 @@
-import { CalendarDays, Clock3, PauseCircle, Radio, Sparkles } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { CalendarDays, Clock3, PauseCircle, Radio, Sparkles, X } from 'lucide-react';
 import { scheduleMeta, statusLabel, weeks } from '../data/schedule';
+import { eventDetails } from '../data/events';
 import { getEventStatus } from '../utils/eventStatus';
 
 export default function Schedule() {
   const eventStatus = getEventStatus();
   const currentWeekNumber = eventStatus.week?.num ?? null;
+  const [selectedWeek, setSelectedWeek] = useState(null);
+
+  useEffect(() => {
+    if (!selectedWeek) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setSelectedWeek(null);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [selectedWeek]);
+
+  const selectedDetail = selectedWeek ? eventDetails[selectedWeek.num] : null;
 
   return (
     <section id="schedule" className="relative px-6 py-28 md:py-36">
@@ -20,6 +42,7 @@ export default function Schedule() {
             <h2 className="text-4xl font-black text-white md:text-6xl">
               12 週，<span className="text-gradient">每週都有新的相聚理由。</span>
             </h2>
+            <p className="mt-4 text-sm text-gray-500">點擊任一週次即可查看活動詳細資訊。</p>
           </div>
 
           <div className="flex flex-col gap-2 text-sm text-gray-400 sm:flex-row sm:gap-6">
@@ -45,9 +68,11 @@ export default function Schedule() {
             const isCurrent = week.num === currentWeekNumber;
 
             return (
-              <article
+              <button
+                type="button"
                 key={week.num}
-                className={`group relative min-h-[190px] overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:-translate-y-1 ${
+                onClick={() => setSelectedWeek(week)}
+                className={`group relative min-h-[190px] overflow-hidden rounded-3xl border p-6 text-left transition-all duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aurora-cyan/70 ${
                   isCurrent
                     ? 'border-aurora-cyan/60 bg-gradient-to-br from-aurora-cyan/15 via-white/[0.06] to-aurora-purple/10 shadow-[0_0_40px_rgba(0,240,255,0.12)]'
                     : week.featured
@@ -58,6 +83,7 @@ export default function Schedule() {
                           ? 'border-dashed border-white/15 bg-white/[0.02]'
                           : 'border-white/10 bg-white/[0.04] hover:border-white/20'
                 }`}
+                aria-label={`查看 Week ${week.num} ${week.title} 詳細內容`}
               >
                 {isCurrent && (
                   <div className="absolute right-4 top-4 rounded-full border border-aurora-cyan/30 bg-aurora-cyan/10 px-2.5 py-1 text-[10px] font-black tracking-widest text-aurora-cyan">
@@ -83,7 +109,10 @@ export default function Schedule() {
                 </div>
 
                 <div className="flex items-end justify-between gap-4">
-                  <h3 className={`text-2xl font-black ${isPlanning && !isCurrent ? 'text-gray-500' : 'text-white'}`}>{week.title}</h3>
+                  <div>
+                    <h3 className={`text-2xl font-black ${isPlanning && !isCurrent ? 'text-gray-500' : 'text-white'}`}>{week.title}</h3>
+                    <span className="mt-3 inline-block text-xs font-bold text-gray-500 transition-colors group-hover:text-aurora-cyan">查看詳情 →</span>
+                  </div>
                   {isBreak ? (
                     <PauseCircle size={24} className="shrink-0 text-gray-500" />
                   ) : isCurrent ? (
@@ -96,7 +125,7 @@ export default function Schedule() {
                 {(week.featured || isCurrent) && (
                   <div className="pointer-events-none absolute -bottom-12 -right-12 h-32 w-32 rounded-full bg-aurora-cyan/10 blur-3xl" />
                 )}
-              </article>
+              </button>
             );
           })}
         </div>
@@ -105,6 +134,67 @@ export default function Schedule() {
           第 9、10 週目前仍在企劃階段，因此官網先明確標示為「規劃中」，不預先填入尚未定案的活動內容。
         </div>
       </div>
+
+      {selectedWeek && selectedDetail && (
+        <div
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-[#02060d]/80 p-4 backdrop-blur-xl sm:p-6"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setSelectedWeek(null);
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="event-detail-title"
+            className="relative max-h-[88vh] w-full max-w-3xl overflow-y-auto rounded-[2rem] border border-white/10 bg-[#08111e] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.65)] sm:p-9"
+          >
+            <button
+              type="button"
+              onClick={() => setSelectedWeek(null)}
+              className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition hover:border-white/20 hover:bg-white/10 hover:text-white"
+              aria-label="關閉活動詳情"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="mb-7 pr-12">
+              <div className="mb-3 font-mono text-xs font-black tracking-[0.24em] text-aurora-cyan">
+                WEEK {String(selectedWeek.num).padStart(2, '0')} · {statusLabel[selectedWeek.status]}
+              </div>
+              <h3 id="event-detail-title" className="text-3xl font-black text-white sm:text-5xl">{selectedWeek.title}</h3>
+              <div className="mt-5 flex flex-wrap gap-3 text-sm text-gray-400">
+                <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2">{scheduleMeta.weeklyTime}</span>
+                {selectedWeek.status === 'planning' && (
+                  <span className="rounded-full border border-aurora-purple/20 bg-aurora-purple/10 px-4 py-2 text-aurora-purple">內容規劃中</span>
+                )}
+                {selectedWeek.status === 'break' && (
+                  <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2">本週暫停官方活動</span>
+                )}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 text-sm leading-7 text-gray-300 sm:p-6 sm:text-base">
+              {selectedDetail.summary}
+            </div>
+
+            {selectedDetail.sections.length > 0 ? (
+              <div className="mt-6 grid gap-4">
+                {selectedDetail.sections.map((section) => (
+                  <div key={section.title} className="rounded-2xl border border-white/10 bg-white/[0.025] p-5">
+                    <h4 className="mb-3 font-black text-white">{section.title}</h4>
+                    <div className="text-sm leading-7 text-gray-400">{section.content}</div>
+                  </div>
+                ))}
+              </div>
+            ) : selectedWeek.status !== 'break' && (
+              <div className="mt-6 rounded-2xl border border-dashed border-white/10 px-5 py-5 text-sm leading-6 text-gray-500">
+                活動流程、詳細規則、參加方式、冬境幣獎勵與注意事項尚未定案。確認後會直接更新在這個詳情視窗中。
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
