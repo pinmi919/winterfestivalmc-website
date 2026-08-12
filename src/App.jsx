@@ -4,6 +4,7 @@ import About from './components/About';
 import News from './components/News';
 import Schedule from './components/Schedule';
 import Creators from './components/Creators';
+import Systems from './components/Systems';
 import Requirements from './components/Requirements';
 import Footer from './components/Footer';
 import Snow from './components/Snow';
@@ -19,6 +20,7 @@ function App() {
       <News />
       <Schedule />
       <Creators />
+      <Systems />
       <Requirements />
       <Footer />
       <MusicPlayer />
