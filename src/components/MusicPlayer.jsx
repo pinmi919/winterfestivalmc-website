@@ -35,8 +35,13 @@ const MusicPlayer = () => {
   const [duration, setDuration] = useState(0);
 
   const audioRef = useRef(null);
+  const isPlayingRef = useRef(false);
   const currentTrack = TRACKS[currentTrackIndex];
   const progress = duration > 0 ? (currentSeconds / duration) * 100 : 0;
+
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
 
   useEffect(() => {
     const mobile = window.matchMedia('(max-width: 767px)');
@@ -51,7 +56,7 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio) return undefined;
 
     const updateTime = () => setCurrentSeconds(audio.currentTime || 0);
     const updateDuration = () => setDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
@@ -78,7 +83,7 @@ const MusicPlayer = () => {
     setCurrentSeconds(0);
     setDuration(0);
 
-    if (isPlaying) {
+    if (isPlayingRef.current) {
       audio.play().catch(() => setIsPlaying(false));
     }
   }, [currentTrackIndex]);
@@ -168,7 +173,7 @@ const MusicPlayer = () => {
                 }}
               >
                 {currentTrackIndex === 1 ? (
-                  <img src={assetUrl('cow.gif')} alt="波蘭牛彩蛋封面" className="h-full w-full scale-125 object-cover" />
+                  <img src={assetUrl('cow.gif')} alt="波蘭牛彩蛋封面" loading="lazy" decoding="async" className="h-full w-full scale-125 object-cover" />
                 ) : (
                   <span className="text-lg" aria-hidden="true">{currentTrack.emoji}</span>
                 )}
